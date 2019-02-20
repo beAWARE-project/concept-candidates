@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: concept-candidates
+  name: concept-candidates
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: concept-candidates
+    spec:
+      containers:
+      - env:
+        - name: LANGUAGE
+          value: en
+        image: maven-taln.upf.edu/uima_taln_concept:20190130b
+        name: concept-candidates
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: "1"
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        volumeMounts:
+        - mountPath: /app/indices
+          name: concept-candidates-claim0
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+      - name: concept-candidates-claim0
+        persistentVolumeClaim:
+          claimName: concept-candidates-claim0
+          readOnly: true
+status: {}
