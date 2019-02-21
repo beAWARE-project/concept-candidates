@@ -4,7 +4,7 @@ node ('beaware-jenkins-slave') {
 		autoCancelled = true
 		return
 	}
-        git(url: 'https://github.com/beaware-project/text-analysis-all.git', branch: 'master')
+        git(url: 'https://github.com/beAWARE-project/concept-candidates.git', branch: 'master')
         sh 'git submodule init'
         sh 'git submodule update'
     }
