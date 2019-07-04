@@ -10,8 +10,8 @@ node ('beaware-jenkins-slave') {
     }
 
     stage ('Deploy') {
-
         sh 'kubectl apply -f kubernetes/deploy.yaml -n prod --validate=false'
+	sh 'kubectl apply -f kubernetes/svc.yaml -n prod --validate=false'
     }
 
     stage ('Print-deploy logs') {
